@@ -531,7 +531,8 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
     const name = info.name || 'भावक';
     person.userData.name = name;
     person.userData.gender = info.gender || 'male';
-    label(person, name, [0, 2.28, 0], Math.max(1.1, name.length * 0.065), '#fff7e8', '#764b29');
+    const nameLabel = label(person, name, [0, 2.35, 0], Math.max(1.4, name.length * 0.09), '#fff7e8', '#764b29');
+    nameLabel.scale.setScalar(1.3);
     const ring = cylinder(person, 0.45, 0.45, 0.02, 0x4a8f3a, [0, 0.01, 0], 24);
     ring.material.transparent = true;
     ring.material.opacity = 0.5;
@@ -555,7 +556,8 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
       person.userData.name = info.name;
       const lbl = person.children[person.children.length - 1];
       if (lbl) { person.remove(lbl); if (lbl.material?.map) { lbl.material.map.dispose(); lbl.material.dispose(); lbl.geometry.dispose(); } }
-      label(person, info.name, [0, 2.28, 0], Math.max(1.1, info.name.length * 0.065), '#fff7e8', '#764b29');
+      const newName = label(person, info.name, [0, 2.35, 0], Math.max(1.4, info.name.length * 0.09), '#fff7e8', '#764b29');
+      newName.scale.setScalar(1.3);
     }
     if (info.x !== undefined) person.userData.targetX = info.x;
     if (info.z !== undefined) person.userData.targetZ = info.z;
@@ -599,14 +601,14 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
         target.lerp(new THREE.Vector3(0, 1.8, -1), 1 - Math.exp(-dt * 4));
         desiredCamera.set(Math.sin(angle) * 23, 19, Math.cos(angle) * 23);
       } else if (station === 'darshan') {
-        target.lerp(new THREE.Vector3(position.x * 0.5, 3.1, -4.7), 1 - Math.exp(-dt * 5));
-        desiredCamera.set(position.x + Math.sin(angle) * 9, 6.5, Math.min(position.z + Math.cos(angle) * 9, 6.2));
+        target.lerp(new THREE.Vector3(position.x * 0.5, 2.0, -4.7), 1 - Math.exp(-dt * 5));
+        desiredCamera.set(position.x + Math.sin(angle) * 6, 3.2, Math.min(position.z + Math.cos(angle) * 6, 6.2));
       } else if (position.z > 7) {
-        target.lerp(new THREE.Vector3(position.x, 3.6, 4.8), 1 - Math.exp(-dt * 5));
-        desiredCamera.set(position.x + Math.sin(angle) * 10, 7.5, position.z + Math.cos(angle) * 10);
+        target.lerp(new THREE.Vector3(position.x, 1.8, 4.8), 1 - Math.exp(-dt * 5));
+        desiredCamera.set(position.x + Math.sin(angle) * 6, 3.0, position.z + Math.cos(angle) * 6);
       } else {
-        target.lerp(new THREE.Vector3(position.x, 2.5, position.z - 3), 1 - Math.exp(-dt * 5));
-        desiredCamera.set(position.x + Math.sin(angle) * 8, 6.2, position.z + Math.cos(angle) * 8);
+        target.lerp(new THREE.Vector3(position.x, 1.7, position.z - 3), 1 - Math.exp(-dt * 5));
+        desiredCamera.set(position.x + Math.sin(angle) * 5, 2.6, position.z + Math.cos(angle) * 5);
       }
     } else {
       target.set(0, 2.2, -1.2);
