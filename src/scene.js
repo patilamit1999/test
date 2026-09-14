@@ -601,13 +601,13 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
         target.lerp(new THREE.Vector3(0, 1.8, -1), 1 - Math.exp(-dt * 4));
         desiredCamera.set(Math.sin(angle) * 23, 19, Math.cos(angle) * 23);
       } else if (station === 'darshan') {
-        target.lerp(new THREE.Vector3(position.x * 0.5, 2.0, -4.7), 1 - Math.exp(-dt * 5));
+        target.lerp(new THREE.Vector3(position.x, 1.7, position.z), 1 - Math.exp(-dt * 5));
         desiredCamera.set(position.x + Math.sin(angle) * 6, 3.2, Math.min(position.z + Math.cos(angle) * 6, 6.2));
       } else if (position.z > 7) {
-        target.lerp(new THREE.Vector3(position.x, 1.8, 4.8), 1 - Math.exp(-dt * 5));
+        target.lerp(new THREE.Vector3(position.x, 1.7, position.z), 1 - Math.exp(-dt * 5));
         desiredCamera.set(position.x + Math.sin(angle) * 6, 3.0, position.z + Math.cos(angle) * 6);
       } else {
-        target.lerp(new THREE.Vector3(position.x, 1.7, position.z - 3), 1 - Math.exp(-dt * 5));
+        target.lerp(new THREE.Vector3(position.x, 1.7, position.z), 1 - Math.exp(-dt * 5));
         desiredCamera.set(position.x + Math.sin(angle) * 5, 2.6, position.z + Math.cos(angle) * 5);
       }
     } else {
