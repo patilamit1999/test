@@ -57,6 +57,7 @@ export function createMultiplayer({ url = DEFAULT_URL, onJoin, onLeave, onUpdate
     if (ws?.readyState === 1) ws.send(JSON.stringify(message));
   }
 
+  let pendingUpdate = null;
   function connect() {
     if (disposed || ws) return;
     try {
@@ -65,7 +66,10 @@ export function createMultiplayer({ url = DEFAULT_URL, onJoin, onLeave, onUpdate
       onError?.('मंडपात इतर भाविक जोडता आले नाहीत.');
       return;
     }
-    ws.addEventListener('open', () => { connected = true; });
+    ws.addEventListener('open', () => {
+      connected = true;
+      if (pendingUpdate) { send({ type: 'update', ...pendingUpdate }); pendingUpdate = null; }
+    });
     ws.addEventListener('message', event => {
       try { handle(JSON.parse(event.data)); } catch {}
     });
@@ -83,6 +87,7 @@ export function createMultiplayer({ url = DEFAULT_URL, onJoin, onLeave, onUpdate
     const now = performance.now();
     if (now - lastSent < 50) return;
     lastSent = now;
+    if (ws?.readyState !== 1) { pendingUpdate = { ...pendingUpdate, ...data }; return; }
     send({ type: 'update', ...data });
   }
 

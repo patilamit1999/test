@@ -529,7 +529,12 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
     if (remoteVisitors.has(id)) return;
     const person = makePerson(root, { x: info.x ?? 0, z: info.z ?? 10.5, gender: info.gender || 'male' });
     const name = info.name || 'भावक';
+    person.userData.name = name;
+    person.userData.gender = info.gender || 'male';
     label(person, name, [0, 2.28, 0], Math.max(1.1, name.length * 0.065), '#fff7e8', '#764b29');
+    const ring = cylinder(person, 0.45, 0.45, 0.02, 0x4a8f3a, [0, 0.01, 0], 24);
+    ring.material.transparent = true;
+    ring.material.opacity = 0.5;
     person.position.set(info.x ?? 0, 0.2, info.z ?? 10.5);
     person.rotation.y = info.angle ?? 0.25;
     person.userData.targetX = info.x ?? 0;
@@ -540,6 +545,18 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
   function updateRemoteVisitor(id, info) {
     const person = remoteVisitors.get(id);
     if (!person) { addRemoteVisitor(id, info); return; }
+    if (info.gender !== undefined && info.gender !== person.userData.gender) {
+      const name = info.name || person.userData.name || 'भावक';
+      removeRemoteVisitor(id);
+      addRemoteVisitor(id, { ...info, name });
+      return;
+    }
+    if (info.name !== undefined && info.name !== person.userData.name) {
+      person.userData.name = info.name;
+      const lbl = person.children[person.children.length - 1];
+      if (lbl) { person.remove(lbl); if (lbl.material?.map) { lbl.material.map.dispose(); lbl.material.dispose(); lbl.geometry.dispose(); } }
+      label(person, info.name, [0, 2.28, 0], Math.max(1.1, info.name.length * 0.065), '#fff7e8', '#764b29');
+    }
     if (info.x !== undefined) person.userData.targetX = info.x;
     if (info.z !== undefined) person.userData.targetZ = info.z;
     if (info.angle !== undefined) person.userData.targetAngle = info.angle;
@@ -615,7 +632,7 @@ export function createScene(canvas, onLocation, onMovementReset = () => {}) {
       person.userData.legs?.forEach((leg, i) => { leg.rotation.x = moving && !reducedMotion ? Math.sin(time * 9 + i * Math.PI) * 0.42 : 0; });
       person.userData.arms?.forEach((arm, i) => { arm.rotation.x = moving && !reducedMotion ? Math.sin(time * 9 + i * Math.PI + Math.PI) * 0.25 : 0; });
       const lbl = person.children[person.children.length - 1];
-      if (lbl?.quaternion) lbl.quaternion.copy(camera.quaternion);
+      if (lbl?.quaternion) lbl.quaternion.copy(camera.quaternion).premultiply(person.quaternion.clone().invert());
     }
     if (!reducedMotion) {
       drummers.forEach((person, i) => person.userData.arms.forEach((arm, j) => { arm.rotation.x = Math.sin(time * 10 + i + j * Math.PI) * 0.2; }));
