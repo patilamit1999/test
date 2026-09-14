@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="mr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f0e5" />
+    <meta name="description" content="गणपती बाप्पांचे आभासी दर्शन घ्या. स्वतःचे पात्र निवडा, मंडपात फिरा, फुले अर्पण करा आणि प्रसादाचा आनंद घ्या. अंकित, अमित आणि पाटील परिवाराकडून गणेश चतुर्थीच्या हार्दिक शुभेच्छा!" />
+    <title>गणपती दर्शन — बाप्पाच्या आणखी जवळ</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="गणपती दर्शनाचे मुख्य पान"><span class="brand-mark">श्री</span><span>गणपती<span class="brand-sub">आभासी दर्शन</span></span></a>
+        <nav aria-label="मुख्य पर्याय"><button class="nav-link active" id="home-link">दर्शनाचा अनुभव</button><button class="nav-link" id="about-link">आमचा मंडप</button></nav>
+        <button class="sound-button" id="sound-toggle" aria-expanded="false" aria-controls="music-panel"><span id="sound-icon">♫</span><span id="sound-label">गणपतीची गाणी</span><span class="sound-dot"></span></button>
+      </header>
+      <main>
+        <section class="experience" aria-label="गणपतींचे आभासी दर्शन">
+          <div class="scene-container" id="scene-container"><canvas id="world" aria-label="फिरता येणारा त्रिमितीय गणपती मंडप" aria-describedby="entry-greeting" tabindex="0"></canvas><div class="scene-vignette"></div></div>
+          <div class="welcome" id="welcome">
+            <div class="eyebrow"><span></span> अंतर कुठलेही असो, उत्सव आपलाच</div>
+            <p class="devanagari">गणपती बाप्पा मोरया</p>
+            <h1>बाप्पाच्या<br /> आणखी <em>जवळ.</em></h1>
+            <p class="intro">रोजची धावपळ क्षणभर विसरा.<br /> आमच्या मंडपात या, उत्सवाचा आनंद घ्या<br class="desktop-break" /> आणि भक्तीचा एक निवांत क्षण अनुभवा.</p>
+            <form id="entry-form">
+              <label class="field-label" for="visitor-name">आपले नाव</label>
+              <input id="visitor-name" name="name" type="text" placeholder="आपले नाव येथे लिहा" maxlength="24" autocomplete="given-name" required />
+              <fieldset><legend class="field-label">आपले पात्र निवडा</legend><div class="avatar-options">
+                <label class="avatar-option"><input type="radio" name="gender" value="male" checked /><span class="avatar-portrait male"><i></i></span><span>पुरुष</span><span class="radio-dot"></span></label>
+                <label class="avatar-option"><input type="radio" name="gender" value="female" /><span class="avatar-portrait female"><i></i></span><span>स्त्री</span><span class="radio-dot"></span></label>
+                <label class="avatar-option"><input type="radio" name="gender" value="neutral" /><span class="avatar-portrait neutral"><i></i></span><span>तटस्थ</span><span class="radio-dot"></span></label>
+              </div></fieldset>
+              <button class="enter-button" id="enter-button" type="submit" disabled><span id="enter-label">मंडप सजवत आहोत…</span><span aria-hidden="true">↗</span></button>
+              <p class="privacy-note"><span aria-hidden="true">◇</span> सर्वांचे स्वागत! नोंदणी नको, फक्त श्रद्धा हवी.</p>
+            </form>
+          </div>
+          <div class="scene-badge" id="scene-badge"><span class="live-dot"></span> घरबसल्या बाप्पांचे दर्शन <span class="badge-line"></span> त्रिमितीय अनुभव</div>
+          <div id="entry-greeting" class="entry-greeting" role="note"><span>॥ श्री गणेशाय नमः ॥</span><strong>गणेश चतुर्थीच्या हार्दिक शुभेच्छा!</strong><p>शुभेच्छुक: अंकित, अमित आणि पाटील परिवार</p></div>
+          <div class="scene-caption" id="scene-caption"><span class="caption-icon">✧</span><div><strong>श्रद्धेने सजवलेला. सर्वांसाठी खुला.</strong><span>तरंगता पर्वत. वाहते पाणी. बाप्पांचे आशीर्वाद.</span></div></div>
+          <div class="scene-tools"><button id="view-toggle" title="दृश्य बदला" aria-label="दृश्य बदला">⌖</button><button id="help-toggle" title="कसे फिरावे?" aria-label="कसे फिरावे?">?</button><button id="fullscreen-toggle" title="पूर्ण पडद्यावर पाहा" aria-label="पूर्ण पडद्यावर पाहा">⛶</button></div>
+          <div class="loading-status" id="loading-status" role="status">दिवे प्रज्वलित करत आहोत…</div>
+          <div class="game-hud" id="game-hud" hidden>
+            <div class="visitor-card"><span class="visitor-symbol">श्री</span><div><small>मंडपात आपले मनःपूर्वक स्वागत!</small><strong id="visitor-greeting"></strong></div><button id="leave-button" aria-label="मंडपातून बाहेर पडा">↗</button></div>
+            <div class="location-pill"><span class="live-dot"></span><span id="location-label">मंडपाचे प्रवेशद्वार</span></div>
+            <div class="journey-progress"><span id="flower-status">○ फुले अर्पण करायची आहेत</span><span id="prasad-status">○ प्रसाद घ्यायचा आहे</span></div>
+            <div class="interaction" id="interaction" hidden><span id="interaction-description"></span><button id="interaction-button"></button></div>
+            <div class="movement-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> चालण्यासाठी</span><span>आजूबाजूला पाहण्यासाठी दृश्य वर-खाली आणि डावे-उजवे ओढा</span><span><kbd>E</kbd> कृतीसाठी</span></div>
+            <div class="touch-controls"><div id="joystick" class="joystick" role="group" tabindex="0" aria-label="चालण्यासाठी जॉयस्टिक" aria-describedby="joystick-help"><span class="joystick-ring" aria-hidden="true"></span><span class="joystick-knob" id="joystick-knob" aria-hidden="true"><span></span></span></div><span class="joystick-caption">ओढून चाला</span><span class="visually-hidden" id="joystick-help">ज्या दिशेला जायचे आहे त्या दिशेला जॉयस्टिक ओढा. हळू चालण्यासाठी थोडे ओढा. थांबण्यासाठी सोडा. कीबोर्डवरील बाणांची बटणेही वापरता येतात.</span></div>
+          </div>
+          <aside id="music-panel" class="music-panel" aria-labelledby="music-heading" hidden>
+            <div class="music-heading"><div><span class="field-label">दर्शनाला भक्तिसंगीताची साथ</span><h2 id="music-heading">बाप्पांची गाणी</h2></div><button id="music-close" aria-label="गाणी थांबवून संगीत खिडकी बंद करा">×</button></div>
+            <div id="music-stage" class="music-stage"><div class="music-equalizer"><span></span><span></span><span></span><span></span><span></span></div><p>फक्त आवाज · दृश्य नाही</p></div>
+            <div id="youtube-frame" class="youtube-frame" aria-hidden="true"><div id="youtube-player">यूट्यूबशी जोडण्यासाठी ‘ऐका’ दाबा.</div></div>
+            <div class="music-now"><div><strong id="music-title">माझा बाप्पा आला</strong><span id="music-artist">झी म्युझिक मराठी</span></div><span id="music-count">१ / ३</span></div>
+            <p id="music-status" class="music-status" role="status">गणपतीची गाणी सुरू करण्यासाठी ‘ऐका’ दाबा.</p>
+            <div class="music-controls" aria-label="गाण्यांची नियंत्रणे"><button id="music-previous" aria-label="मागील गाणे" disabled>‹</button><button id="music-play">ऐका</button><button id="music-next" aria-label="पुढील गाणे" disabled>›</button><button id="music-shuffle" aria-pressed="false" disabled>क्रम बदला</button></div>
+            <label class="music-volume" for="music-volume">आवाज<input id="music-volume" type="range" min="0" max="100" value="45" /><output id="music-volume-value" for="music-volume">४५%</output></label>
+            <details class="music-library" id="music-library"><summary>गाण्यांची यादी आणि नवीन गाणी</summary><ol id="music-queue" aria-label="गाण्यांची यादी"></ol><form id="music-add-form"><label for="music-url">यूट्यूबचे गाणे किंवा गाण्यांची यादी जोडा</label><div class="music-add-row"><input id="music-url" type="url" placeholder="यूट्यूबचा दुवा येथे द्या" maxlength="2048" required /><button type="submit">जोडा</button></div><p id="music-add-status" role="status"></p></form><button id="music-reset">पुन्हा मूळ तीन गाण्यांची यादी निवडा</button></details>
+            <p class="music-note">पुढील गाणे आपोआप सुरू होईल. मंडपात प्रवेश केल्यावर गाणी आपोआप सुरू होतात आणि पार्श्वभूमीत चालू राहतात. <a id="music-external" href="https://www.youtube.com/watch?v=_op9dPmACsE" target="_blank" rel="noopener noreferrer">यूट्यूबवर उघडा ↗</a></p>
+            <p class="music-privacy">गाणी यूट्यूबवरून वाजतात. जाहिराती व प्रादेशिक निर्बंध लागू होऊ शकतात.</p>
+          </aside>
+          <div class="toast" id="toast" role="status" hidden></div>
+        </section>
+        <section class="experience-footer" aria-label="अनुभवाची वैशिष्ट्ये"><div class="footer-intro"><span class="tiny-star">✧</span><p>उत्सव एकच.<br /><strong>आनंदाचे क्षण असंख्य.</strong></p></div><div class="feature"><span class="feature-icon">⌘</span><div><h2>मंडपात फेरफटका</h2><p>आपले पात्र. आपला भक्तिमय प्रवास.</p></div></div><div class="feature"><span class="feature-icon">♬</span><div><h2>उत्सवाचा नाद अनुभवा</h2><p>प्रवेशद्वारी ढोल-ताशांचे पथक.</p></div></div><div class="feature"><span class="feature-icon">♧</span><div><h2>गोड प्रसादाचा आनंद</h2><p>प्रसाद कक्षाला अवश्य भेट द्या.</p></div></div></section>
+        <footer class="bottom-bar"><span>आमच्या मंडपातून आपल्या घरी, श्रद्धेचा एक धागा.</span><span>गणपती बाप्पा मोरया, मंगलमूर्ती मोरया।</span></footer>
+      </main>
+    </div>
+    <dialog id="info-dialog"><button id="close-dialog" class="dialog-close" aria-label="खिडकी बंद करा">×</button><span class="dialog-symbol">श्री</span><h2 id="dialog-title">आमच्या मंडपात आपले स्वागत!</h2><div id="dialog-content"></div></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
