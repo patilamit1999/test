@@ -28,37 +28,7 @@ function toast(message) {
 
 function updateInteraction(station) {
   state.station = station;
-  $('interaction').hidden = !station || !state.entered;
   $('location-label').textContent = station === 'darshan' ? 'बाप्पांच्या चरणी' : station === 'prasad' ? 'प्रसाद कक्ष' : 'मंडपात फेरफटका';
-  if (station === 'darshan') {
-    $('interaction-description').textContent = 'बाप्पांसोबत एक निवांत क्षण';
-    $('interaction-button').textContent = state.flowers ? 'क्षणभर ध्यान करा · E' : 'फुले अर्पण करा · E';
-  } else if (station === 'prasad') {
-    $('interaction-description').textContent = state.prasad ? 'बाप्पांचा आशीर्वाद सोबत घ्या' : 'थोडा गोडवा, भरपूर आशीर्वाद';
-    $('interaction-button').textContent = state.prasad ? 'प्रसाद मिळाला' : 'आभासी प्रसाद घ्या · E';
-  }
-  $('interaction-button').disabled = station === 'prasad' && state.prasad;
-}
-
-function interact() {
-  if (!state.entered || !state.station || $('info-dialog').open) return;
-  if (state.station === 'darshan') {
-    if (!state.flowers) {
-      state.flowers = true;
-      world.offerFlowers();
-      mp.sendFlowers();
-      $('flower-status').textContent = '✓ फुले अर्पण केली';
-      $('flower-status').classList.add('done');
-      toast('आपली फुले श्रद्धेने अर्पण झाली. गणपती बाप्पा मोरया!');
-    } else toast('शांतपणे श्वास घ्या. हा क्षण आपल्या मनाला शांती देवो.');
-  } else if (!state.prasad) {
-    state.prasad = true;
-    mp.sendPrasad();
-    $('prasad-status').textContent = '✓ प्रसाद मिळाला';
-    $('prasad-status').classList.add('done');
-    showDialog('आपल्यासाठी बाप्पांचा गोड प्रसाद', '<p>प्रेमाने अर्पण केलेला एक आभासी मोदक. हे दर्शन आपल्या आयुष्यात शांती, समाधान आणि आनंद घेऊन येवो.</p><p>गणपती बाप्पा मोरया!</p><p class="small-note">हा प्रतीकात्मक आभासी प्रसाद आहे. प्रत्यक्ष प्रसादाची मागणी किंवा घरपोच सेवा नाही.</p>');
-  }
-  updateInteraction(state.station);
 }
 
 function showDialog(title, content) {
@@ -104,10 +74,6 @@ $('leave-button').addEventListener('click', () => {
   $('game-hud').hidden = true;
   $('toast').hidden = true;
   $('visitor-name').focus({ preventScroll: true });
-});
-$('interaction-button').addEventListener('click', interact);
-window.addEventListener('keydown', event => {
-  if (event.key.toLowerCase() === 'e' && !event.repeat && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) interact();
 });
 function updateMusic(next) {
   const track = next.tracks[next.index];
@@ -185,7 +151,7 @@ $('fullscreen-toggle').addEventListener('click', async () => {
     else toast('या ब्राउझरमध्ये पूर्ण पडद्याची सुविधा उपलब्ध नाही.');
   } catch { toast('सध्या पूर्ण पडद्यावर दाखवता येत नाही.'); }
 });
-$('help-toggle').addEventListener('click', () => showDialog('चला, मंडपात फेरफटका मारूया', '<p>आपले नाव लिहा, पात्र निवडा आणि उत्सवात सहभागी व्हा.</p><ul><li><strong>चालण्यासाठी:</strong> W, A, S, D किंवा बाणांची बटणे वापरा. मोबाईलवर डावीकडील जॉयस्टिक इच्छित दिशेला ओढा. थोडे ओढल्यास हळू, जास्त ओढल्यास वेगाने चालता येते. सोडल्यावर पात्र थांबते. चालतानाही दुसऱ्या बोटाने दृश्य फिरवता येते.</li><li><strong>आजूबाजूला पाहण्यासाठी:</strong> त्रिमितीय दृश्य डावीकडे-उजवीकडे आणि वर-खाली ओढा.</li><li><strong>फुले व प्रसाद:</strong> बाप्पांजवळ किंवा प्रसाद कक्षाजवळ जाऊन E दाबा, किंवा पडद्यावरील कृतीचे बटण निवडा.</li><li><strong>विस्तृत दृश्य:</strong> दृश्य बदलण्याचे बटण वापरा.</li></ul><p class="small-note">मंडपात प्रवेश केल्यावर गाणी आपोआप सुरू होतात. ‘गणपतीची गाणी’ उघडून गाण्यांची यादी बदलता येते. संगीत खिडकी बंद केल्यावरही गाणी चालू राहतात.</p>'));
+$('help-toggle').addEventListener('click', () => showDialog('चला, मंडपात फेरफटका मारूया', '<p>आपले नाव लिहा, पात्र निवडा आणि उत्सवात सहभागी व्हा.</p><ul><li><strong>चालण्यासाठी:</strong> W, A, S, D किंवा बाणांची बटणे वापरा. मोबाईलवर डावीकडील जॉयस्टिक इच्छित दिशेला ओढा. थोडे ओढल्यास हळू, जास्त ओढल्यास वेगाने चालता येते. सोडल्यावर पात्र थांबते. चालतानाही दुसऱ्या बोटाने दृश्य फिरवता येते.</li><li><strong>आजूबाजूला पाहण्यासाठी:</strong> त्रिमितीय दृश्य डावीकडे-उजवीकडे आणि वर-खाली ओढा.</li><li><strong>विस्तृत दृश्य:</strong> दृश्य बदलण्याचे बटण वापरा.</li></ul><p class="small-note">मंडपात प्रवेश केल्यावर गाणी आपोआप सुरू होतात. ‘गणपतीची गाणी’ उघडून गाण्यांची यादी बदलता येते. संगीत खिडकी बंद केल्यावरही गाणी चालू राहतात.</p>'));
 $('about-link').addEventListener('click', () => showDialog('अंतर मिटवणारा आपला मंडप', '<p>अंकित, अमित आणि पाटील परिवाराकडून गणेश चतुर्थीच्या हार्दिक शुभेच्छा! सर्वांनी एकत्र उत्सव अनुभवावा, यासाठी हे छोटेसे आभासी देवस्थान.</p><p>तरंगता खडकाळ पर्वत, वाहते पाणी, हिरवीगार झाडे आणि उजळलेले खांब ही सजावट आपण दिलेल्या छायाचित्रातून प्रेरित आहे. मध्यभागी गणपती बाप्पांची त्रिमितीय मूर्ती, प्रवेशद्वारी ढोल-ताशांचे पथक आणि जवळच प्रसाद कक्ष आहे.</p><p class="small-note">हा एका व्यक्तीसाठीचा आभासी अनुभव आहे. आपले नाव फक्त या पानाच्या तात्पुरत्या स्मृतीत राहते; ते सर्व्हरवर पाठवले जात नाही. पात्रे आणि सजावट ही कलात्मक मांडणी आहे. इच्छेनुसार गाणी यूट्यूबवरून ऐकता येतात.</p>'));
 $('home-link').addEventListener('click', () => {
   if (state.entered) $('leave-button').click();
